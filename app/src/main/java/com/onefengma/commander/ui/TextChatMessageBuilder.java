@@ -5,25 +5,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.onefengma.commander.R;
 import com.onefengma.commander.model.BaseChatMessage;
 import com.onefengma.commander.model.TextChatMessage;
 
-public class TextChatMessageBuilder implements IChatMessageBuilder {
+public class TextChatMessageBuilder extends BaseChatMessageBuilder {
 
-    private Context context;
 
     public TextChatMessageBuilder(Context context) {
-        this.context = context;
+        super(context);
     }
 
     @Override
-    public View getView(BaseChatMessage chatMessage, View convertView, ViewGroup parent) {
-        TextChatMessage message = (TextChatMessage) chatMessage;
+    protected View getViewItem(BaseChatMessage chatMessage, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = new TextView(context);
+            convertView = inflater.inflate(R.layout.text_chat_message_layout, parent, false);
         }
-        ((TextView)convertView).setText(message.getMessage());
+        ((TextView)convertView).setText(((TextChatMessage)chatMessage).getMessage());
         return convertView;
     }
+
 
 }

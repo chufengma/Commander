@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dip"
+    android:paddingBottom="10dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip">
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:id="@+id/avator"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="2dip"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:src="@mipmap/demo_avator_there" />
+
+    <RelativeLayout
+        android:layout_toLeftOf="@id/avator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/content_view">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="6dip"
+            android:paddingLeft="6dip"
+            android:textSize="12sp"/>
+
+        <FrameLayout
+            android:id="@+id/message"
+            android:layout_marginTop="5dip"
+            android:layout_below="@id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

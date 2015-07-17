@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener{
+public class ChatActivity extends BaseActivity implements View.OnClickListener,View.OnFocusChangeListener {
 
     private static String TAG = "----" + ChatActivity.class;
 
@@ -29,11 +31,20 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private ChatListAdapter chatListAdapter;
     private View addView;
     private EditText editView;
+    private View panelView;
+    private Button sendButton;
 
     private Runnable scrollToBottomRunnable = new Runnable() {
         @Override
         public void run() {
             chatListView.smoothScrollToPosition(chatListAdapter.getCount());
+        }
+    };
+
+    private Runnable setSelectionRunnable = new Runnable() {
+        @Override
+        public void run() {
+            chatListView.setSelection(chatListAdapter.getCount());
         }
     };
 
@@ -48,6 +59,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     }
 
     public void initActionBar() {
+        // FIXME mock
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         getSupportActionBar().setTitle("南京海关指挥组（21人）");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,33 +71,35 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         chatListAdapter.setChatMessages(getChatMessages());
         chatListView.setAdapter(chatListAdapter);
 
-        chatListView.post(new Runnable() {
-            @Override
-            public void run() {
-                chatListView.setSelection(chatListAdapter.getCount());
-            }
-        });
+        chatListView.post(setSelectionRunnable);
 
         addView = findViewById(R.id.add);
         addView.setOnClickListener(this);
 
+        sendButton = (Button) findViewById(R.id.send);
+        sendButton.setOnClickListener(this);
+
         editView = (EditText) findViewById(R.id.edit);
         editView.setOnClickListener(this);
 
-        editView.requestFocus();
-        editView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                InputUtils.hideSoftKeyboard(inputMethodManager, editView.getWindowToken());
-            }
-        }, 100);
+        editView.setOnFocusChangeListener(this);
+
+        panelView = findViewById(R.id.panel);
     }
 
     public List<BaseChatMessage> getChatMessages() {
+        // FIXME mock
         List<BaseChatMessage> messages = new ArrayList<BaseChatMessage>();
-        for(int i = 0 ; i < 110 ;i++) {
+        for(int i = 0 ; i < 54 ;i++) {
             TextChatMessage textChatMessage = new TextChatMessage();
-            textChatMessage.setMessage("哈哈哈哈苏德发射点发：" + i);
+            textChatMessage.setMessage("这是一条自动生成的消息：" + i);
+            if (i%5 == 0) {
+                textChatMessage.setIsLoginUser(true);
+                textChatMessage.setUserName("金刚狼");
+            } else {
+                textChatMessage.setIsLoginUser(false);
+                textChatMessage.setUserName("诸葛亮");
+            }
             messages.add(textChatMessage);
         }
         return messages;
@@ -115,12 +129,61 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.edit:
                 Log.i(TAG,"edit clicked");
-                editView.postDelayed(scrollToBottomRunnable, 150);
+                onEditClick();
+                break;
+            case R.id.send:
+                Log.i(TAG,"send clicked");
+                onSendClick();
                 break;
         }
     }
 
+    private void onEditClick() {
+        panelView.setVisibility(View.GONE);
+        panelView.postDelayed(setSelectionRunnable, 150);
+    }
+
     private void onAddClick() {
-        addView.postDelayed(scrollToBottomRunnable, 150);
+        updatePanle(panelView.getVisibility() == View.VISIBLE);
+    }
+
+    private void updatePanle(boolean needGone) {
+        if (!needGone) {
+            InputUtils.hideSoftKeyboard(inputMethodManager, panelView.getWindowToken());
+            panelView.setVisibility(View.VISIBLE);
+        } else {
+            InputUtils.showSoftKeyboard(panelView);
+            panelView.setVisibility(View.GONE);
+        }
+        panelView.postDelayed(setSelectionRunnable, 150);
+    }
+
+    private void onSendClick() {
+        //FIXME mock
+        TextChatMessage textChatMessage = new TextChatMessage();
+        textChatMessage.setIsLoginUser(true);
+        textChatMessage.setUserName("金刚狼");
+        textChatMessage.setMessage(editView.getText().toString());
+        sendMessage(textChatMessage);
+
+        TextChatMessage textChatMessageResp = new TextChatMessage();
+        textChatMessageResp.setUserName("诸葛亮");
+        textChatMessageResp.setMessage(editView.getText().toString() + ", 说得对！");
+        sendMessage(textChatMessageResp);
+
+        editView.setText("");
+    }
+
+    private void sendMessage(BaseChatMessage message) {
+        chatListAdapter.addChatMessage(message);
+        chatListView.post(scrollToBottomRunnable);
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (view.getId() == R.id.edit) {
+            panelView.setVisibility(View.GONE);
+            editView.postDelayed(setSelectionRunnable, 150);
+        }
     }
 }

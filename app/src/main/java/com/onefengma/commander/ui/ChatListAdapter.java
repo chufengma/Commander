@@ -25,6 +25,11 @@ public class ChatListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addChatMessage(BaseChatMessage message) {
+        messageLists.add(message);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return messageLists.size();

@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Commander</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
+    <string name="send">发送</string>
 
+    <string name="image">图片</string>
+    <string name="record">录像</string>
+    <string name="file">文件</string>
 </resources>
