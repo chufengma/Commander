@@ -48,12 +48,12 @@ public class GroupActivity extends BaseActivity implements SearchView.OnQueryTex
         searchView.onActionViewExpanded();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getString(R.string.group_search));
-//        searchView.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                searchView.clearFocus();
-//            }
-//        }, 150);
+        searchView.post(new Runnable() {
+            @Override
+            public void run() {
+                searchView.clearFocus();
+            }
+        });
 
     }
 

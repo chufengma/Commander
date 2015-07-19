@@ -45,6 +45,14 @@
             android:name=".ui.ChatSettingActivity"
             android:label="@string/title_activity_chat_setting" >
         </activity>
+        <activity
+            android:name=".ui.MemberProfileActivity"
+            android:label="@string/title_activity_member_profile" >
+        </activity>
+        <activity
+            android:name=".ui.ChangeGroupNameActivity"
+            android:label="@string/title_activity_change_group_name" >
+        </activity>
     </application>
 
 </manifest>

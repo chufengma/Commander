@@ -3,10 +3,8 @@ package com.onefengma.commander.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.onefengma.commander.R;
 import com.onefengma.commander.model.Member;
@@ -14,9 +12,19 @@ import com.onefengma.commander.utils.ViewUtils;
 
 import java.util.List;
 
-public class ChatMemberLayout extends LinearLayout {
+public class ChatMemberLayout extends LinearLayout implements View.OnClickListener{
 
     private LayoutParams memberLayoutParams;
+    private OnMemberClickListener onMemberClickListener;
+
+    public interface OnMemberClickListener {
+        void onMemberClick(Member member);
+        void onAddMemberClick();
+    }
+
+    public void setOnMemberClickListener(OnMemberClickListener onMemberClickListener) {
+        this.onMemberClickListener = onMemberClickListener;
+    }
 
     public ChatMemberLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,7 +42,7 @@ public class ChatMemberLayout extends LinearLayout {
                 rowLayout = createRowLayout();
                 addView(rowLayout);
             }
-            rowLayout.addView(createMemberView());
+            rowLayout.addView(createMemberView(members.get(i)));
         }
         int restCount = 4 - rowLayout.getChildCount();
         if (restCount == 0) {
@@ -64,11 +72,13 @@ public class ChatMemberLayout extends LinearLayout {
         return linearLayout;
     }
 
-    private ImageView createMemberView() {
+    private ImageView createMemberView(Member member) {
         ImageView memberView = new ImageView(getContext());
         memberView.setLayoutParams(getMemberLayoutParams());
         memberView.setImageResource(R.mipmap.demo_avator_login_user);
         memberView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        memberView.setOnClickListener(this);
+        memberView.setTag(member);
         return memberView;
     }
 
@@ -88,7 +98,21 @@ public class ChatMemberLayout extends LinearLayout {
         addView.setLayoutParams(getMemberLayoutParams());
         addView.setImageResource(R.mipmap.ic_add);
         addView.setScaleType(ImageView.ScaleType.CENTER);
+        addView.setOnClickListener(this);
+        addView.setId(R.id.add_member);
         return addView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (onMemberClickListener == null) {
+            return;
+        }
+        if (view.getId() == R.id.add_member) {
+            onMemberClickListener.onAddMemberClick();
+        } else {
+            onMemberClickListener.onMemberClick((Member)view.getTag());
+        }
     }
 
 }

@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@null"
+            android:clickable="false"
             android:drawableTop="@mipmap/chat_panel_record"
             android:text="@string/group" />
     </RelativeLayout>

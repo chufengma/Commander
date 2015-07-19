@@ -17,4 +17,8 @@
     <color name="setting_item_selected">#f1f1f1</color>
     <color name="setting_item_normal">#ffffff</color>
 
+    <color name="green_selected">#4DCA4F</color>
+    <color name="green_normal">#af4DCA4F</color>
+
+
 </resources>

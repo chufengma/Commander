@@ -26,4 +26,8 @@
     <string name="title_activity_chat_setting">聊天设置</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_member_profile">详细资料</string>
+    <string name="title_activity_change_group_name">修改组名</string>
+
+    <string name="action_save">保存</string>
 </resources>

@@ -3,29 +3,41 @@ package com.onefengma.commander.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.onefengma.commander.R;
+import com.onefengma.commander.model.Group;
 import com.onefengma.commander.model.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatSettingActivity extends BaseActivity {
+public class ChatSettingActivity extends BaseActivity implements ChatMemberLayout.OnMemberClickListener, View.OnClickListener{
+
+    private static final String EXTRA_GROUP = "group";
 
     private ChatMemberLayout chatMemberLayout;
+    private Group group;
+    private View changeGroupName;
 
-    public static void startFrom(Activity activity) {
-        activity.startActivity(new Intent(activity, ChatSettingActivity.class));
+    public static void startFrom(Activity activity, Group group) {
+        Intent intent = new Intent(activity, ChatSettingActivity.class);
+        intent.putExtra(EXTRA_GROUP, group);
+        activity.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_setting);
+        group = (Group) getIntent().getSerializableExtra(EXTRA_GROUP);
+
         chatMemberLayout = (ChatMemberLayout) findViewById(R.id.chat_member_layout);
         chatMemberLayout.addMembers(getMemebers());
+        chatMemberLayout.setOnMemberClickListener(this);
+
+        changeGroupName = findViewById(R.id.set_group_name);
+        changeGroupName.setOnClickListener(this);
     }
 
     private List<Member> getMemebers() {
@@ -41,19 +53,21 @@ public class ChatSettingActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chat_setting, menu);
-        return true;
+    public void onMemberClick(Member member) {
+        MemberProfileActivity.startFrom(this);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void onAddMemberClick() {
+        CreateGroupActivity.startForAddMemberFrom(this);
+    }
 
-        if (id == R.id.action_settings) {
-            return true;
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.set_group_name:
+                ChangeGroupNameActivity.startFrom(this, group);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
