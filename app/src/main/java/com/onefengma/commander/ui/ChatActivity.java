@@ -1,6 +1,8 @@
 package com.onefengma.commander.ui;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 
 import com.onefengma.commander.R;
 import com.onefengma.commander.model.BaseChatMessage;
+import com.onefengma.commander.model.Group;
 import com.onefengma.commander.model.TextChatMessage;
 import com.onefengma.commander.utils.InputUtils;
 
@@ -21,11 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener,View.OnFocusChangeListener {
+public class ChatActivity extends BaseActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
     private static String TAG = "----" + ChatActivity.class;
 
-    private InputMethodManager inputMethodManager;
+    private static String EXTRA_GROUP = "extra_group";
 
     private ListView chatListView;
     private ChatListAdapter chatListAdapter;
@@ -33,6 +36,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
     private EditText editView;
     private View panelView;
     private Button sendButton;
+
+    private Group group;
 
     private Runnable scrollToBottomRunnable = new Runnable() {
         @Override
@@ -48,12 +53,18 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
         }
     };
 
+    public static void startFrom(Activity activity, Group group) {
+        Intent intent = new Intent(activity, ChatActivity.class);
+        intent.putExtra(EXTRA_GROUP, group);
+        activity.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        group = (Group) getIntent().getSerializableExtra(EXTRA_GROUP);
         initActionBar();
         initViews();
     }
@@ -61,7 +72,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
     public void initActionBar() {
         // FIXME mock
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        getSupportActionBar().setTitle("南京海关指挥组（21人）");
+        getSupportActionBar().setTitle(group.getGroupName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -90,10 +101,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
     public List<BaseChatMessage> getChatMessages() {
         // FIXME mock
         List<BaseChatMessage> messages = new ArrayList<BaseChatMessage>();
-        for(int i = 0 ; i < 54 ;i++) {
+        for (int i = 0; i < 54; i++) {
             TextChatMessage textChatMessage = new TextChatMessage();
             textChatMessage.setMessage("这是一条自动生成的消息：" + i);
-            if (i%5 == 0) {
+            if (i % 5 == 0) {
                 textChatMessage.setIsLoginUser(true);
                 textChatMessage.setUserName("金刚狼");
             } else {
@@ -124,15 +135,15 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add:
-                Log.i(TAG,"add Button clicked");
+                Log.i(TAG, "add Button clicked");
                 onAddClick();
                 break;
             case R.id.edit:
-                Log.i(TAG,"edit clicked");
+                Log.i(TAG, "edit clicked");
                 onEditClick();
                 break;
             case R.id.send:
-                Log.i(TAG,"send clicked");
+                Log.i(TAG, "send clicked");
                 onSendClick();
                 break;
         }
@@ -149,7 +160,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,V
 
     private void updatePanle(boolean needGone) {
         if (!needGone) {
-            InputUtils.hideSoftKeyboard(inputMethodManager, panelView.getWindowToken());
+            InputUtils.hideSoftKeyboard(panelView);
             panelView.setVisibility(View.VISIBLE);
         } else {
             InputUtils.showSoftKeyboard(panelView);

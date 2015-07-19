@@ -24,4 +24,19 @@
         <item name="android:background">@color/divider</item>
     </style>
 
+    <style name="MainButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ListViewTitle" parent="@android:style/Widget.TextView">
+        <item name="android:background">#cccccc</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingTop">3dip</item>
+        <item name="android:paddingBottom">3dip</item>
+        <item name="android:paddingRight">20dip</item>
+    </style>
+
 </resources>

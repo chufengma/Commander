@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.onefengma.commander.ui.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:clickable="true"
+        android:id="@+id/group"
+        android:layout_weight="1"
+        android:background="#F76921">
+
+        <TextView
+            style="@style/MainButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:drawableTop="@mipmap/chat_panel_record"
+            android:text="@string/group" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="10dip"
+        android:layout_weight="2">
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:clickable="true"
+            android:id="@+id/create_group"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dip"
+            android:layout_weight="1"
+            android:background="#1CABA9">
+
+            <TextView
+                style="@style/MainButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:clickable="false"
+                android:drawableTop="@mipmap/chat_panel_record"
+                android:text="@string/create_group" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/system_message"
+            android:clickable="true"
+            android:background="#EFA22A">
+
+            <TextView
+                android:clickable="false"
+                style="@style/MainButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:drawableTop="@mipmap/chat_panel_record"
+                android:text="@string/system_message" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

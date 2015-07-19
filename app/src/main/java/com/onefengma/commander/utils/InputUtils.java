@@ -7,8 +7,9 @@ import android.view.inputmethod.InputMethodManager;
 
 public class InputUtils {
 
-    public static void hideSoftKeyboard(InputMethodManager manager, IBinder binder) {
-        manager.hideSoftInputFromWindow(binder, 0);
+    public static void hideSoftKeyboard(View view) {
+        InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static void showSoftKeyboard(View view) {

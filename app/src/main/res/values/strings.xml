@@ -7,4 +7,14 @@
     <string name="image">图片</string>
     <string name="record">录像</string>
     <string name="file">文件</string>
+
+    <!--main activity-->
+    <string name="title_activity_main">应急指挥</string>
+    <string name="group">指挥组</string>
+    <string name="create_group">创建指挥组</string>
+    <string name="system_message">系统消息</string>
+    <string name="title_activity_group">指挥组</string>
+
+    <string name="action_create">新建</string>
+    <string name="group_search">搜索</string>
 </resources>
