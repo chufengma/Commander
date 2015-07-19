@@ -39,4 +39,12 @@
         <item name="android:paddingRight">20dip</item>
     </style>
 
+    <style name="ChatSettingItemStyle">
+        <item name="android:textSize">16dip</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:paddingTop">16dip</item>
+        <item name="android:paddingBottom">16dip</item>
+        <item name="android:paddingRight">10dip</item>
+    </style>
+
 </resources>

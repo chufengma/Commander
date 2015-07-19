@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip">
+
+    <ImageView
+        android:id="@+id/avator"
+        android:layout_width="40dip"
+        android:layout_alignParentLeft="true"
+        android:src="@mipmap/demo_avator_there"
+        android:layout_height="40dip" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/avator"
+        android:layout_marginLeft="15dip"
+        android:text="南京夫子庙应急小组"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <include
+        android:id="@+id/line"
+        android:layout_marginTop="8dip"
+        android:layout_below="@id/avator"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        layout="@layout/divider_1_dip" />
+
+</RelativeLayout>

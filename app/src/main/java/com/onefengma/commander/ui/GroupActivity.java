@@ -48,12 +48,12 @@ public class GroupActivity extends BaseActivity implements SearchView.OnQueryTex
         searchView.onActionViewExpanded();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(getString(R.string.group_search));
-        searchView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                searchView.clearFocus();
-            }
-        }, 150);
+//        searchView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                searchView.clearFocus();
+//            }
+//        }, 150);
 
     }
 
@@ -81,11 +81,10 @@ public class GroupActivity extends BaseActivity implements SearchView.OnQueryTex
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_create) {
+            CreateGroupActivity.startFrom(this);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

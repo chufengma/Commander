@@ -126,6 +126,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            ChatSettingActivity.startFrom(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

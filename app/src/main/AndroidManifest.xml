@@ -33,6 +33,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.onefengma.commander.ui.BaseActivity" />
         </activity>
+        <activity
+            android:name=".ui.CreateGroupActivity"
+            android:label="@string/title_activity_create_group"
+            android:parentActivityName=".ui.BaseActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.onefengma.commander.ui.BaseActivity" />
+        </activity>
+        <activity
+            android:name=".ui.ChatSettingActivity"
+            android:label="@string/title_activity_chat_setting" >
+        </activity>
     </application>
 
 </manifest>

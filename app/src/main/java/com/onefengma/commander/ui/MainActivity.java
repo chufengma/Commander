@@ -32,9 +32,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.group:
+                GroupActivity.startFrom(this);
                 break;
             case R.id.create_group:
-                GroupActivity.startFrom(this);
+                CreateGroupActivity.startFrom(this);
                 break;
             case R.id.system_message:
                 break;

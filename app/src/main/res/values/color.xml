@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bg">#f1f1f1</color>
+    <color name="gray_bg">#cccccc</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
 
     <color name="main_bg">#1ba1e2</color>
-    <color name="divider">#cccccc</color>
+    <color name="divider">#e0e0e0</color>
     <color name="chat_bg">#ebebeb</color>
 
     <color name="chat_item_for_login_user">#b3e769</color>
@@ -11,5 +14,7 @@
 
     <color name="chat_panel_bg">#f4f4f6</color>
 
+    <color name="setting_item_selected">#f1f1f1</color>
+    <color name="setting_item_normal">#ffffff</color>
 
 </resources>
